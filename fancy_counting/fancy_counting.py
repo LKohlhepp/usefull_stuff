@@ -48,25 +48,6 @@ def calc_mean_var_fast(probabilities):
     # returns <x> = sum(x_i * p(x_i)), <x**2> = sum(x_i**2 * p(x_i))
     return sum([(i + sure_thing) * cum_probs[i] for i in range(len(cum_probs))]), sum([(i + sure_thing)**2 * cum_probs[i] for i in range(len(cum_probs))])
 
-"""
-Block Comment for calc_mean_var_fast
-            To explain the 3 line cluster fuck down there, will be removen by proper comments when everything works:
-            visualisation 1: 
-            not_hit_mult = [(1-probabilities[i]) * prob for prob in cum_probs].append(0)
-            hit_mult = [probabilities[i] * prob for prob in cum_probs].insert(0, 0)
-            cum_probs = [not_hit_mult[k] + hit_mult[k] for k in range(len(not_hit_mult))]
-            
-            visualisation 2: 
-            new_cum = []
-            for k in range(len(cum_probs) + 1):
-                if k == 0:
-                    new_cum.append(cum_probs[0] * (1 - p))
-                elif k == len(cum_probs):
-                    new_cum.append(cum_probs[-1] * p)
-                else:
-                    new_cum.append(cum_probs[k] * (1 - p) + cum_probs[k - 1] * p)
-            """
-
 
 # n-bins = len(bins)-1, because upper and lowest boundary are given
 def build_prob_matrix(x, err, bins, errfunc=cdf_gauss, impossiblity_thresehold=1E-4):
